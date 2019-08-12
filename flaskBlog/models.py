@@ -1,5 +1,9 @@
 from datetime import datetime
-from flaskBlog import db
+#from flaskBlog import db
+from flaskBlog import app
+from flask_sqlalchemy import SQLAlchemy
+
+db = SQLAlchemy(app)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
