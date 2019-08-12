@@ -1,11 +1,16 @@
 from datetime import datetime
 #from flaskBlog import db
-from flaskBlog import app
+from flaskBlog import app, login_manager
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import UserMixin
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 db = SQLAlchemy(app)
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
